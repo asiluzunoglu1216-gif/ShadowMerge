@@ -1,97 +1,130 @@
-```markdown
-# 🚀 ShadowMerge Studio Ultimate
+<div align="center">
 
-ShadowMerge Studio Ultimate; Windows işletim sistemlerinde dosya boyutu, format ve işletim sistemi filtreleme sınırlarını ortadan kaldıran, **Askeri Düzey Şifreleme** ve **Zlib (Level 9) Sıkıştırma** entegrasyonlu, sürükle-bırak destekli gelişmiş bir adli bilişim karşıtı (anti-forensics) veri gizleme ve paketleme istasyonudur.
+# 🕵️‍♂️ SHADOWMERGE STUDIO ULTIMATE
 
-Bu yazılım; klasik steganografi veya polyglot yöntemlerinin ötesine geçerek, yerel Windows dosya ilişkisi (File Association) mimarisiyle entegre çalışır.
+**« Askeri Düzey Şifreleme • Maksimum Sıkıştırma • Evrensel Veri Gizleme »**
 
----
+[![Python Version](https://img.shields.io/badge/Python-3.8%2B-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Platform](https://img.shields.io/badge/Platform-Windows-0078d7.svg?style=for-the-badge&logo=windows&logoColor=white)]()
+[![License](https://img.shields.io/badge/Lisans-MIT-success.svg?style=for-the-badge)]()
+[![Security](https://img.shields.io/badge/Security-XOR%20%2B%20ROTL-red.svg?style=for-the-badge)]()
 
-## 🌟 Öne Çıkan Özellikler
+*Dış kütüphanelere bağımlı olmayan, yerel (offline) ve tamamen ham byte manipülasyonu yapan üst düzey bir Steganografi ve Polyglot Derleyici motoru.*
 
-*   **📦 Evrensel Depolama (Sınırsız Dosya Desteği):** PNG, MP4, ZIP, EXE, PDF gibi dosya formatı ve adet sınırlamalarını tamamen ortadan kaldırır. İstediğiniz sayıda ve türde dosyayı tek bir pakette birleştirir.
-*   **🛡️ Askeri Düzey "Anti-Adli Bilişim" Şifrelemesi:** Dosyalar birleştirilmeden önce C hızında çalışan özel bir Lookup Table (LUT) üzerinden **XOR + Bitwise Left Rotation (3-bit bit kaydırma)** işlemlerine tabi tutulur. Bu sayede `Binwalk`, `Foremost` veya `HxD` gibi analiz araçları dosya imzalarını (Magic Bytes) tamamen çorba olarak görür ve içerik tespit edemez.
-*   **🗜️ Zlib Sıkıştırma Katmanı (Küçük Dosya Boyutu):** Eklenen tüm veriler şifreleme öncesinde en yüksek seviyede (`Level 9`) sıkıştırılarak depolanır. Oluşan `.shadow` paketinin diskte minimum yer kaplamasını sağlar.
-*   **📋 Seçimli Dosya Kurtarma (Treeview Listesi):** Paket çözüldüğünde içerideki tüm gizli dosyaları orijinal isim, uzantı ve boyutlarıyla listeler. İstediğiniz dosyayı seçip bilgisayarınıza sıfır kayıpla indirebilirsiniz.
-*   **🪟 Windows Entegrasyonu & Çift Tıklama Desteği:** Tek tıkla Windows Kayıt Defteri'ne (`Registry`) kendini kaydeder. Tüm `.shadow` dosyalarının simgesini `logo.ico` yapar ve çift tıkladığınızda otomatik olarak programın çözücü ekranında açılmasını sağlar.
+<img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Python-Dark.svg" width="60">
 
----
+</div>
 
-## ⚙️ Teknik Çalışma Mantığı
+<br>
 
-Program, verileri eklerken ve çözerken aşağıdaki özel binary akış şemasını (Custom Packaging Structure) kullanır:
-
-
-```
-
-[ GİZLENMİŞ DOSYA VERİLERİ (Sıkıştırılmış + Şifrelenmiş) ]
-👇
-[ TOC (İçindekiler Tablosu): Dosya Adları, Boyutları ve Adresleri ]
-👇
-[ TOC Boyut Bilgisi (8 Byte Big-Endian Unsigned Long Long) ]
-👇
-[ Sihirli Güvenlik İmzası (8 Byte: SHDWULTM) ]
-
-```
+> [!IMPORTANT]
+> Bu araç, siber güvenlik araştırmaları, adli bilişim (forensics) testleri ve veri gizleme tekniklerinin (steganografi) sınırlarını keşfetmek amacıyla **eğitim odaklı** geliştirilmiştir. 
 
 ---
 
-## 🛠️ Kurulum ve Gereksinimler
+## 📑 İçindekiler
+- [✨ Öne Çıkan Özellikler](#-öne-çıkan-özellikler)
+- [🧠 Mimari ve Çalışma Mantığı](#-mimari-ve-çalışma-mantığı)
+- [🚀 Kurulum ve Başlangıç](#-kurulum-ve-başlangıç)
+- [🎮 Kullanım Rehberi](#-kullanım-rehberi)
+- [⚙️ Bağımsız EXE (Kurulum) Oluşturma](#️-bağımsız-exe-kurulum-oluşturma)
 
-Programın çalışması için bilgisayarınızda **Python 3.10 veya üzeri (Tercihen 3.12 / 3.13)** kurulu olmalıdır.
+---
 
-### 1. Gerekli Kütüphaneleri Yükleyin
-Sürükle-bırak motorunun (TkinterDnD2) aktif olması için terminale (CMD) şu komutları girin:
+## ✨ Öne Çıkan Özellikler
+
+| Özellik | Açıklama |
+| :--- | :--- |
+| 🛡️ **Askeri Düzey Anti-Forensics** | Verileriniz XOR ve Bitwise Left Rotation (ROTL) ile şifrelenir. `Binwalk`, `HxD` veya `Foremost` gibi araçlar dosya içeriklerini okuyamaz. |
+| 📦 **Sınırsız Evrensel Depo** | Tür (EXE, PDF, JPG, MP4, ZIP) ve boyut sınırı olmadan dilediğiniz sayıda dosyayı tek bir `.shadow` paketinde birleştirin. |
+| 🗜️ **Maksimum Zlib Sıkıştırma** | Şifreleme öncesi Zlib `Level 9` ile verileriniz olabilecek en küçük boyuta getirilir. |
+| 🖥️ **Kusursuz Arayüz & UX** | Karanlık tema (Dark Mode) destekli, Sürükle-Bırak yetenekli modern Tkinter/TkinterDnD2 arayüzü. |
+| 🪟 **Windows Entegrasyonu** | Tek tuşla Windows Kayıt Defterine (Registry) eklenir. `.shadow` dosyaları uygulamanın kendi logosuyla (Tüy/Logo) görünür ve çift tıklama ile açılır. |
+| ⚡ **C-Hızında Çözümleme** | Önceden hesaplanmış *Lookup Table (LUT)* ve bağımsız *TOC (İçindekiler)* mimarisi sayesinde GB'larca veriyi anında işler. |
+
+---
+
+## 🧠 Mimari ve Çalışma Mantığı
+
+ShadowMerge Ultimate, verileri analiz araçlarından gizlemek için eşsiz bir **Binary (İkili)** dosya dizilimi kullanır:
+
+<details>
+<summary><b>🔍 Mimariyi Detaylı İncele (Tıkla)</b></summary>
+<br>
+
+1. **Ön Bellek (LUT) Üretimi:** Program başlar başlamaz 256-byte'lık bir şifreleme ve çözme tablosu oluşturur. Bu, şifreleme işleminin C-dili hızında yapılmasını sağlar.
+2. **Sıkıştırma ve Şifreleme:** Eklenen her dosya önce `zlib` ile en yüksek oranda sıkıştırılır, ardından `XOR + ROTL` algoritması ile tamamen tanınmaz (obfuscated) hale getirilir.
+3. **Ardışık Yazım ve TOC:** Şifrelenen tüm dosyalar art arda yazılır. En sona ise dosyaların gerçek isimlerini, orijinal boyutlarını ve şifreli boyutlarını barındıran **TOC (Table of Contents)** tablosu eklenir.
+4. **SHDWULTM Mührü:** Dosyanın absolute sonuna (EOF) TOC boyutu ve 8 byte'lık sihirli mühür (`SHDWULTM`) yerleştirilir. Çözücü sekmesi dosyayı açarken sadece bu mührü okur ve tüm paket içeriğini RAM'i doldurmadan milisaniyeler içinde listeler.
+
+</details>
+
+---
+
+## 🚀 Kurulum ve Başlangıç
+
+### 🔧 Gereksinimler
+- Python 3.8 veya daha üstü bir sürüm
+- `tkinterdnd2` kütüphanesi (Sürükle-Bırak özelliği için şarttır)
+
+### 📥 İndirme ve Çalıştırma
+
+Aşağıdaki komutları kullanarak aracı anında çalıştırmaya başlayabilirsiniz:
+
 ```bash
+# 1. Repoyu klonlayın
+git clone https://github.com/KULLANICI_ADINIZ/ShadowMerge.git
+
+# 2. Dizin içerisine girin
+cd ShadowMerge
+
+# 3. Gerekli kütüphaneyi kurun
 pip install tkinterdnd2
 
-```
-
-### 2. Programı Çalıştırın
-
-```bash
+# 4. Programı başlatın
 python shadowmerge_ultimate.py
-
 ```
 
 ---
 
-## 📦 Bağımsız EXE ve Kurulum Dosyası (Setup.exe) Yapma
+## 🎮 Kullanım Rehberi
 
-Yazılımı Python kurulu olmayan bilgisayarlarda da çalıştırmak ve kurmak için bağımsız bir `.exe` dosyasına dönüştürebilirsiniz.
+Arayüz oldukça basit ve iki ana sekmeden oluşur:
 
-### 1. Derleme Adımı (PyInstaller)
+### 🛠️ 1. Oluşturucu (Creator)
+- Gizlemek istediğiniz dosyaları (örneğin birkaç fotoğraf, bir EXE dosyası ve özel belgelerinizi) ortadaki geniş siyah alana sürükleyip bırakın.
+- Sağ alt köşedeki **"ShadowMerge Paketi Oluştur"** butonuna tıklayın.
+- Arkanıza yaslanın! Sistem tüm dosyalarınızı şifreleyecek, sıkıştıracak ve tek bir `.shadow` dosyasına dönüştürecektir.
 
-Terminali açın ve projenin bulunduğu klasörde şu komutu çalıştırın (Klasörde `logo.ico` dosyasının olduğundan emin olun):
+### 🔓 2. Çözücü (Extractor)
+- Çözmek istediğiniz `.shadow` uzantılı paketi alana sürükleyin.
+- İçindeki dosyalar anında orijinal adları ve boyutlarıyla listelenecektir.
+- Listeden istediğiniz dosyayı seçip **"Seçili Dosyayı Bilgisayara İndir"** butonuna tıklayarak sıfır kayıpla veriyi geri alabilirsiniz.
 
-```bash
-pyinstaller --noconsole --onefile --icon=logo.ico shadowmerge_ultimate.py
-
-```
-
-> **Önemli:** Eğer sürükle-bırak kütüphanesinin paket içine gömülmesinde sorun yaşarsanız komuta `--add-data` parametresini ekleyerek `tkdnd` klasörünüzün yolunu belirtin.
-
-### 2. Kurulum Sihirbazı (Inno Setup)
-
-* `dist` klasöründe oluşan `shadowmerge_ultimate.exe` dosyasını alın.
-* **Inno Setup** kullanarak bu `.exe` dosyasını ve `logo.ico` simgenizi içeren profesyonel bir `Setup.exe` kurulum sihirbazı oluşturun.
+> [!TIP]
+> **Hızlı Kullanım:** Uygulama içindeki "Sisteme Entegre Et" butonunu kullanarak programı Windows'a tanıtabilirsiniz. Böylece bir daha arayüzü açmanıza gerek kalmaz; `.shadow` dosyasına çift tıkladığınızda program otomatik olarak Çözücü sekmesinde açılır! *(Bu işlem için programı Yönetici Olarak çalıştırmanız gerekebilir).*
 
 ---
 
-## 🧑‍💻 Kullanım Kılavuzu
+## ⚙️ Bağımsız EXE (Kurulum) Oluşturma
 
-### Paket Oluşturma (Creator)
+Programı Python yüklü olmayan bilgisayarlara göndermek veya tam teşekküllü bir **Setup.exe** yapmak istiyorsanız:
 
-1. `Oluşturucu` sekmesine gelin.
-2. İstediğiniz dosyaları büyük sürükle-bırak alanına bırakın.
-3. **ShadowMerge Paketi Oluştur** butonuna basarak `.shadow` uzantılı dosyanızı kaydedin.
+1. Önce kod derleyici paketini yükleyin:
+   ```bash
+   pip install pyinstaller
+   ```
+2. Terminal üzerinden programı tek parça haline getirin:
+   ```bash
+   pyinstaller --noconsole --onefile --icon=logo.ico --add-data "C:\PythonYolunuz\tcl\tkdnd2.9.2;tkdnd" shadowmerge_ultimate.py
+   ```
+   *(Not: `tkdnd` kütüphanesinin bilgisayarınızdaki gerçek konumunu bulup yukarıdaki `C:\...` kısmına yazmayı unutmayın)*
+3. Oluşan `dist/shadowmerge_ultimate.exe` dosyasını *Inno Setup* veya *NSIS* gibi araçlarla kolaylıkla bir kurulum sihirbazına (Installer) dönüştürebilirsiniz.
 
-### Paket Çözme ve İndirme (Extractor)
+<br>
 
-1. Oluşturduğunuz `.shadow` dosyasını `Çözücü` sekmesine sürükleyin (veya sisteme entegre ettiyseniz dosyaya çift tıklayın).
-2. Listelenen gizli dosyalardan kurtarmak istediğinizi seçin.
-3. **Seçili Dosyayı Bilgisayara İndir** butonuna basarak istediğiniz yere kaydedin.
+<div align="center">
 
-```
+**[ 🛡️ ShadowMerge Studio Ultimate - Tamamen Güvenli & Bağımsız ]**
 
-```
+</div>
