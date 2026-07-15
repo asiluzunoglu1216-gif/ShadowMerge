@@ -73,7 +73,7 @@ Aşağıdaki komutları kullanarak aracı anında çalıştırmaya başlayabilir
 
 ```bash
 # 1. Repoyu klonlayın
-git clone https://github.com/KULLANICI_ADINIZ/ShadowMerge.git
+git clone https://github.com/asiluzunoglu1216-gif/ShadowMerge.git
 
 # 2. Dizin içerisine girin
 cd ShadowMerge
